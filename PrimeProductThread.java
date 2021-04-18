@@ -23,7 +23,9 @@ public class PrimeProductThread extends Thread{
     public void calPrimeProduct() throws IOException {
 
         FileWriter fw=new FileWriter("prime.txt");
-        BigInteger result=stream.filter(this::isPrime).reduce(BigInteger.ONE,BigInteger::multiply);
+        // use paralle stream instead of sequential streams, that will boost your performance
+        BigInteger result=stream.parallel().filter(this::isPrime).reduce(BigInteger.ONE,BigInteger::multiply);
+//         BigInteger result=stream.filter(this::isPrime).reduce(BigInteger.ONE,BigInteger::multiply);
         fw.write(result.toString());
         fw.close();
     }
